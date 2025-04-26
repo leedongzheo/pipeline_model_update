@@ -49,7 +49,7 @@ testDS = SegmentationDataset(imagePaths=testImagesPaths, maskPaths=testMasksPath
 
 # print(f"[INFO] found {len(trainDS)} examples in the training set...")
 # print(f"[INFO] found {len(validDS)} examples in the valid set...")
-print(f"[INFO] found {len(testDS)} examples in the valid set...")
+print(f"[INFO] found {len(testDS)} examples in the test set...")
 # create the training and test data loaders
 
 trainLoader = DataLoader(trainDS, shuffle=True,
