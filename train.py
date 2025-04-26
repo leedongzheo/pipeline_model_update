@@ -64,7 +64,7 @@ def main():
     else:
         if not args.checkpoint:
             raise ValueError("Chế độ pretrain yêu cầu checkpoint!")
-        trainer.evaluate(train_loader=testLoader, checkpoint_path = args.checkpoint)
+        trainer.evaluate(test_loader = testLoader, checkpoint_path = args.checkpoint)
         # trainer.pretrained(trainLoader,validLoader,args.checkpoint)
         export_evaluate(trainer)
 
