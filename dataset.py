@@ -24,7 +24,7 @@ class SegmentationDataset(Dataset):
 			image = self.transforms(image)
 			mask = self.transforms(mask)
 		# return a tuple of the image and its mask
-		return (image, mask)
+		return image, mask, imagePath
 # load the image and mask filepaths in a sorted manner
 trainImagesPaths = sorted(list(paths.list_images(IMAGE_TRAIN_PATH)))
 trainMasksPaths = sorted(list(paths.list_images(MASK_TRAIN_PATH)))
