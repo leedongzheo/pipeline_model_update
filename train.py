@@ -7,7 +7,7 @@ def get_args():
     parser = argparse.ArgumentParser(description="Train, Pretrain hoặc Evaluate một model AI")
     parser.add_argument("--epoch", type=int, help="Số epoch để train")
     # parser.add_argument("--model", type=str, required=True, help="Đường dẫn đến model")
-    parser.add_argument("--mode", type=str, choices=["train", "pretrain", "evaluate"], required=True, help="Chế độ: train hoặc pretrain")
+    parser.add_argument("--mode", type=str, choices=["train", "pretrain", "evaluate"], required=True, help="Chế độ: train hoặc pretrain hoặc evaluate")
     parser.add_argument("--data", type=str, required=True, help="Đường dẫn đến dataset đã giải nén")
     # Tham số trường hợp
     parser.add_argument("--checkpoint", type=str, help="Đường dẫn đến file checkpoint (chỉ dùng cho chế độ pretrain và evaluate)")
