@@ -1,5 +1,5 @@
-# Access data at the link: /link: https://www.kaggle.com/datasets/kookmindoo/isic2018
-
+# Access data at the link:
+https://www.kaggle.com/datasets/kookmindoo/isic2018
 # pipeline_model_update
 # Create output_folder
 # Run Script:
