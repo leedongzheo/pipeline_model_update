@@ -22,9 +22,13 @@ class SegmentationDataset(Dataset):
 		if self.transforms is not None:
 			# apply the transformations to both image and its mask
 			image = self.transforms(image)
-			mask = self.transforms(mask)
-		# return a tuple of the image and its mask
+			# mask = self.transforms(mask)
+			mask = cv2.resize(mask, (256, 256), interpolation=cv2.INTER_NEAREST)
+			mask = (mask > 127).astype("float32")
+			mask = torch.from_numpy(mask)
+			mask = mask.unsqueeze(0)    
 		return image, mask, imagePath
+
 # load the image and mask filepaths in a sorted manner
 trainImagesPaths = sorted(list(paths.list_images(IMAGE_TRAIN_PATH)))
 trainMasksPaths = sorted(list(paths.list_images(MASK_TRAIN_PATH)))
