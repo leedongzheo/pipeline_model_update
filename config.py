@@ -22,6 +22,7 @@ import shutil
 import sys
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch.optim.lr_scheduler import MultiStepLR
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 """Phần I: Xét các tham số"""
 # THAM SỐ HẰNG SỐ
 # Đặt seed để đảm bảo tái hiện kết quả
