@@ -80,7 +80,7 @@ class Trainer:
             # Training loop with progress bar
             print(f'\nEpoch {epoch + 1}/{self.num_epochs}')
             train_loader_progress = tqdm(enumerate(train_loader), total=len(train_loader), desc="Training")
-            for i, (images, masks) in train_loader_progress:
+            for i, (images, masks, _) in train_loader_progress:
                 images, masks = images.to(self.device), masks.to(self.device)
 
                 self.model.train()
@@ -108,7 +108,7 @@ class Trainer:
             self.model.eval()
             with torch.no_grad():
                 val_loader_progress = tqdm(enumerate(val_loader), total=len(val_loader), desc="Validation")
-                for i, (images, masks) in val_loader_progress:
+                for i, (images, masks, _) in val_loader_progress:
                     images, masks = images.to(self.device), masks.to(self.device)
                     outputs = self.model(images)
                     dice = dice_coeff(outputs, masks)
@@ -187,7 +187,7 @@ class Trainer:
             # Training loop with progress bar
             print(f'\nEpoch {epoch + 1}/{self.num_epochs}')
             train_loader_progress = tqdm(enumerate(train_loader), total=len(train_loader), desc="Training")
-            for i, (images, masks) in train_loader_progress:
+            for i, (images, masks, _) in train_loader_progress:
                 images, masks = images.to(self.device), masks.to(self.device)
 
                 self.model.train()
@@ -214,7 +214,7 @@ class Trainer:
             self.model.eval()
             with torch.no_grad():
                 val_loader_progress = tqdm(enumerate(val_loader), total=len(val_loader), desc="Validation")
-                for i, (images, masks) in val_loader_progress:
+                for i, (images, masks, _) in val_loader_progress:
                     images, masks = images.to(self.device), masks.to(self.device)
                     outputs = self.model(images)
                     dice = dice_coeff(outputs, masks)
