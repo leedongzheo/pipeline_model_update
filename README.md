@@ -1,4 +1,4 @@
-# Access data at the link:
+Access dataset ISIC2018 at the link:
 https://www.kaggle.com/datasets/kookmindoo/isic2018
 # pipeline_model_update
 # Create output_folder
