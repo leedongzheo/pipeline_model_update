@@ -75,13 +75,13 @@ def to_numpy(tensor):
     # Move tensor to CPU and convert to NumPy array
     return tensor.cpu().detach().item()
     
-def loss_func(inputs, target):
+def loss_func(*kwargs):
     args = get_args()
     if args.loss == "Dice_loss":
-        x = dice_coef_loss(dice)
+        x = dice_coef_loss(*kwargs)
         return x
     elif args.loss == "BCEDice_loss":
-        x = bce_dice_loss(dice)
+        x = bce_dice_loss(*kwargs)
         return x
 
 
