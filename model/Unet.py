@@ -62,7 +62,7 @@ class Decoder(nn.Module):
         return x
 class Unet(nn.Module):
 
-    def __init__(self, input_channel=1):
+    def __init__(self, input_channel=3):
         super().__init__()
         self.encoder_1 = Encoder(input_channel, 64, 0.07)
         self.encoder_2 = Encoder(64, 128, 0.08)
