@@ -803,7 +803,8 @@ class SwinUnet(nn.Module):
                                 drop_path_rate=0.1,
                                 ape=False,
                                 patch_norm=True,
-                                use_checkpoint="expand_first")
+                                # use_checkpoint="expand_first"
+                                use_checkpoint=False)
 
     def forward(self, x):
         if x.size()[1] == 1:
