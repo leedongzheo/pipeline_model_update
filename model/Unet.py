@@ -98,6 +98,6 @@ class Unet(nn.Module):
 
         """ ------ Final Layer ------"""
         x_final = self.cls(x9)
-        x_final = self.relu(x_final)
+        # x_final = self.relu(x_final)
 
         return x_final
