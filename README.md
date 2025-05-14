@@ -5,7 +5,7 @@ https://www.kaggle.com/datasets/kookmindoo/isic2018
 # Run Script:
 ## !python train.py --mode evaluate --data "" --checkpoint "" --saveas "" 
 # Training:
-## !python train.py --mode train --epoch 3 --data /kaggle/input/isic2018/ISIC2018 --lr0 0.1 --saveas "/kaggle/working/outputSwinUNet1" --batchsize 16
+## !python train.py --mode train --epoch 3 --lr0 0.1 --batchsize 16 --data /kaggle/input/isic2018/ISIC2018 --saveas "/kaggle/working/outputSwinUNet1" 
 # Pretrain:
 ## !python train.py --mode pretrain --epoch 50 --lr0 0.1 --batchsize 16 --data /kaggle/input/isic2018/ISIC2018 --checkpoint /kaggle/working/last_model_down.pth --saveas /kaggle/working/outputSwinUNet1
 # Evaluate:
