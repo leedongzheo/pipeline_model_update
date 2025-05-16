@@ -41,6 +41,9 @@ NUM_CLASSES = 1
 
 """Phần II: Xử lý logic"""
 args = get_args()
+
+#  Tham số trường hợp:
+augment = args.augment
 # tham số vừa là hằng số vừa thay đổi:
 lr0 = args.lr0 if args.lr0 else INIT_LR
 bach_size = args.batchsize if args.batchsize else BATCH_SIZE
