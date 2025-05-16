@@ -25,150 +25,149 @@ class SegmentationDataset(Dataset):
 			mask = torch.from_numpy(mask)  
 			mask = mask.unsqueeze(0)                     # shape (1, H, W)
 			return image, mask, imagePath	
-# def get_dataloaders(augment):    
-if augment:
-	print("[INFO] Using AUGMENTATION for training set")
-	train_transform = A.Compose([
+			
+def get_dataloaders(augment):    
+    if augment:
+        print("[INFO] Using AUGMENTATION for training set")
+        train_transform = A.Compose([
 	     A.Resize(
-		height=256,
-		width=256,
-		interpolation=cv2.INTER_LINEAR,          # cho ảnh
-		mask_interpolation=cv2.INTER_NEAREST     # cho mask
-	),
-	    A.HorizontalFlip(p=0.5),
-	    A.Rotate(limit=15, border_mode=0, p=0.3),
-	    A.RandomBrightnessContrast(brightness_limit=0.1, contrast_limit=0.1, p=0.3),
-	    A.GaussNoise(var_limit=(10, 50), p=0.2),
-	    A.ElasticTransform(alpha=1.0, sigma=50.0, p=0.2),
-	    A.GridDistortion(num_steps=5, distort_limit=0.03, p=0.2),
-	    A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
-	    ToTensorV2()
-	])
-else:
-	print("[INFO] Not using AUGMENTATION")
+	        height=256,
+	        width=256,
+	        interpolation=cv2.INTER_LINEAR,          # cho ảnh
+	        mask_interpolation=cv2.INTER_NEAREST     # cho mask
+    ),
+            A.HorizontalFlip(p=0.5),
+            A.Rotate(limit=15, border_mode=0, p=0.3),
+            A.RandomBrightnessContrast(brightness_limit=0.1, contrast_limit=0.1, p=0.3),
+            A.GaussNoise(var_limit=(10, 50), p=0.2),
+            A.ElasticTransform(alpha=1.0, sigma=50.0, p=0.2),
+            A.GridDistortion(num_steps=5, distort_limit=0.03, p=0.2),
+            A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
+            ToTensorV2()
+        ])
+    else:
+        print("[INFO] Not using AUGMENTATION")
         train_transform = A.Compose([
             A.Resize(
 	        height=256,
 	        width=256,
 	        interpolation=cv2.INTER_LINEAR,          # cho ảnh
 	        mask_interpolation=cv2.INTER_NEAREST     # cho mask
-	),
+    ),
             A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
             ToTensorV2()
         ])
 
-valid_transform = A.Compose([
+    valid_transform = A.Compose([
 	A.Resize(
-		height=256,
-		width=256,
-		interpolation=cv2.INTER_LINEAR,          # cho ảnh
-		mask_interpolation=cv2.INTER_NEAREST     # cho mask
-	),
-	A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
-	ToTensorV2()
-])
+	        height=256,
+	        width=256,
+	        interpolation=cv2.INTER_LINEAR,          # cho ảnh
+	        mask_interpolation=cv2.INTER_NEAREST     # cho mask
+    ),
+        A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
+        ToTensorV2()
+    ])
 
 
 
-trainImagesPaths = sorted(list(paths.list_images(IMAGE_TRAIN_PATH)))
-trainMasksPaths = sorted(list(paths.list_images(MASK_TRAIN_PATH)))
+    trainImagesPaths = sorted(list(paths.list_images(IMAGE_TRAIN_PATH)))
+    trainMasksPaths = sorted(list(paths.list_images(MASK_TRAIN_PATH)))
 
-validImagesPaths = sorted(list(paths.list_images(IMAGE_VALID_PATH)))
-validMasksPaths = sorted(list(paths.list_images(MASK_VALID_PATH)))
+    validImagesPaths = sorted(list(paths.list_images(IMAGE_VALID_PATH)))
+    validMasksPaths = sorted(list(paths.list_images(MASK_VALID_PATH)))
 
-testImagesPaths = sorted(list(paths.list_images(IMAGE_TEST_PATH)))
-testMasksPaths = sorted(list(paths.list_images(MASK_TEST_PATH)))
+    testImagesPaths = sorted(list(paths.list_images(IMAGE_TEST_PATH)))
+    testMasksPaths = sorted(list(paths.list_images(MASK_TEST_PATH)))
 
-trainDS = SegmentationDataset(trainImagesPaths, trainMasksPaths, transforms=train_transform)
-validDS = SegmentationDataset(validImagesPaths, validMasksPaths, transforms=valid_transform)
-testDS = SegmentationDataset(testImagesPaths, testMasksPaths, transforms=valid_transform)
-print(f"[INFO] found {len(trainDS)} examples in the training set...")
-print(f"[INFO] found {len(validDS)} examples in the valid set...")
-print(f"[INFO] found {len(testDS)} examples in the test set...")
-
-trainLoader = DataLoader(trainDS, shuffle=True,
-	batch_size=bach_size, pin_memory=PIN_MEMORY,
-	num_workers=4)
-validLoader = DataLoader(validDS, shuffle=False,
-	batch_size=bach_size, pin_memory=PIN_MEMORY,
-	num_workers=4)
-testLoader = DataLoader(testDS, shuffle=False,
-	batch_size=bach_size, pin_memory=PIN_MEMORY,
-	num_workers=4)
+    trainDS = SegmentationDataset(trainImagesPaths, trainMasksPaths, transforms=train_transform)
+    validDS = SegmentationDataset(validImagesPaths, validMasksPaths, transforms=valid_transform)
+    testDS = SegmentationDataset(testImagesPaths, testMasksPaths, transforms=valid_transform)
+    print(f"[INFO] found {len(trainDS)} examples in the training set...")
+    print(f"[INFO] found {len(validDS)} examples in the valid set...")
+    print(f"[INFO] found {len(testDS)} examples in the test set...")
 	
-    # return trainLoader, validLoader, testLoader
+    trainLoader = DataLoader(trainDS, shuffle=True,
+        batch_size=bach_size, pin_memory=PIN_MEMORY,
+        num_workers=4)
+    validLoader = DataLoader(validDS, shuffle=False,
+        batch_size=bach_size, pin_memory=PIN_MEMORY,
+        num_workers=4)
+    testLoader = DataLoader(testDS, shuffle=False,
+        batch_size=bach_size, pin_memory=PIN_MEMORY,
+        num_workers=4)
+	
+    return trainLoader, validLoader, testLoader
 
 
-# def get_dataloaders(augment):    
-#     if augment:
-#         print("[INFO] Using AUGMENTATION for training set")
-#         train_transform = A.Compose([
+# if augment:
+# 	print("[INFO] Using AUGMENTATION for training set")
+# 	train_transform = A.Compose([
 # 	     A.Resize(
-# 	        height=256,
-# 	        width=256,
-# 	        interpolation=cv2.INTER_LINEAR,          # cho ảnh
-# 	        mask_interpolation=cv2.INTER_NEAREST     # cho mask
-#     ),
-#             A.HorizontalFlip(p=0.5),
-#             A.Rotate(limit=15, border_mode=0, p=0.3),
-#             A.RandomBrightnessContrast(brightness_limit=0.1, contrast_limit=0.1, p=0.3),
-#             A.GaussNoise(var_limit=(10, 50), p=0.2),
-#             A.ElasticTransform(alpha=1.0, sigma=50.0, p=0.2),
-#             A.GridDistortion(num_steps=5, distort_limit=0.03, p=0.2),
-#             A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
-#             ToTensorV2()
-#         ])
-#     else:
-#         print("[INFO] Not using AUGMENTATION")
+# 		height=256,
+# 		width=256,
+# 		interpolation=cv2.INTER_LINEAR,          # cho ảnh
+# 		mask_interpolation=cv2.INTER_NEAREST     # cho mask
+# 	),
+# 	    A.HorizontalFlip(p=0.5),
+# 	    A.Rotate(limit=15, border_mode=0, p=0.3),
+# 	    A.RandomBrightnessContrast(brightness_limit=0.1, contrast_limit=0.1, p=0.3),
+# 	    A.GaussNoise(var_limit=(10, 50), p=0.2),
+# 	    A.ElasticTransform(alpha=1.0, sigma=50.0, p=0.2),
+# 	    A.GridDistortion(num_steps=5, distort_limit=0.03, p=0.2),
+# 	    A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
+# 	    ToTensorV2()
+# 	])
+# else:
+# 	print("[INFO] Not using AUGMENTATION")
 #         train_transform = A.Compose([
 #             A.Resize(
 # 	        height=256,
 # 	        width=256,
 # 	        interpolation=cv2.INTER_LINEAR,          # cho ảnh
 # 	        mask_interpolation=cv2.INTER_NEAREST     # cho mask
-#     ),
+# 	),
 #             A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
 #             ToTensorV2()
 #         ])
 
-#     valid_transform = A.Compose([
+# valid_transform = A.Compose([
 # 	A.Resize(
-# 	        height=256,
-# 	        width=256,
-# 	        interpolation=cv2.INTER_LINEAR,          # cho ảnh
-# 	        mask_interpolation=cv2.INTER_NEAREST     # cho mask
-#     ),
-#         A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
-#         ToTensorV2()
-#     ])
+# 		height=256,
+# 		width=256,
+# 		interpolation=cv2.INTER_LINEAR,          # cho ảnh
+# 		mask_interpolation=cv2.INTER_NEAREST     # cho mask
+# 	),
+# 	A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
+# 	ToTensorV2()
+# ])
 
 
 
-#     trainImagesPaths = sorted(list(paths.list_images(IMAGE_TRAIN_PATH)))
-#     trainMasksPaths = sorted(list(paths.list_images(MASK_TRAIN_PATH)))
+# trainImagesPaths = sorted(list(paths.list_images(IMAGE_TRAIN_PATH)))
+# trainMasksPaths = sorted(list(paths.list_images(MASK_TRAIN_PATH)))
 
-#     validImagesPaths = sorted(list(paths.list_images(IMAGE_VALID_PATH)))
-#     validMasksPaths = sorted(list(paths.list_images(MASK_VALID_PATH)))
+# validImagesPaths = sorted(list(paths.list_images(IMAGE_VALID_PATH)))
+# validMasksPaths = sorted(list(paths.list_images(MASK_VALID_PATH)))
 
-#     testImagesPaths = sorted(list(paths.list_images(IMAGE_TEST_PATH)))
-#     testMasksPaths = sorted(list(paths.list_images(MASK_TEST_PATH)))
+# testImagesPaths = sorted(list(paths.list_images(IMAGE_TEST_PATH)))
+# testMasksPaths = sorted(list(paths.list_images(MASK_TEST_PATH)))
 
-#     trainDS = SegmentationDataset(trainImagesPaths, trainMasksPaths, transforms=train_transform)
-#     validDS = SegmentationDataset(validImagesPaths, validMasksPaths, transforms=valid_transform)
-#     testDS = SegmentationDataset(testImagesPaths, testMasksPaths, transforms=valid_transform)
-#     print(f"[INFO] found {len(trainDS)} examples in the training set...")
-#     print(f"[INFO] found {len(validDS)} examples in the valid set...")
-#     print(f"[INFO] found {len(testDS)} examples in the test set...")
-	
-#     trainLoader = DataLoader(trainDS, shuffle=True,
-#         batch_size=bach_size, pin_memory=PIN_MEMORY,
-#         num_workers=4)
-#     validLoader = DataLoader(validDS, shuffle=False,
-#         batch_size=bach_size, pin_memory=PIN_MEMORY,
-#         num_workers=4)
-#     testLoader = DataLoader(testDS, shuffle=False,
-#         batch_size=bach_size, pin_memory=PIN_MEMORY,
-#         num_workers=4)
-	
-#     return trainLoader, validLoader, testLoader
+# trainDS = SegmentationDataset(trainImagesPaths, trainMasksPaths, transforms=train_transform)
+# validDS = SegmentationDataset(validImagesPaths, validMasksPaths, transforms=valid_transform)
+# testDS = SegmentationDataset(testImagesPaths, testMasksPaths, transforms=valid_transform)
+# print(f"[INFO] found {len(trainDS)} examples in the training set...")
+# print(f"[INFO] found {len(validDS)} examples in the valid set...")
+# print(f"[INFO] found {len(testDS)} examples in the test set...")
+
+# trainLoader = DataLoader(trainDS, shuffle=True,
+# 	batch_size=bach_size, pin_memory=PIN_MEMORY,
+# 	num_workers=4)
+# validLoader = DataLoader(validDS, shuffle=False,
+# 	batch_size=bach_size, pin_memory=PIN_MEMORY,
+# 	num_workers=4)
+# testLoader = DataLoader(testDS, shuffle=False,
+# 	batch_size=bach_size, pin_memory=PIN_MEMORY,
+# 	num_workers=4)
+
 
