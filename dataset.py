@@ -1,4 +1,5 @@
 from config import*
+
 class SegmentationDataset(Dataset):
 	def __init__(self, imagePaths, maskPaths, transforms):
 		# store the image and mask filepaths, and augmentation
