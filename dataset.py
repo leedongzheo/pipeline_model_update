@@ -20,7 +20,7 @@ class SegmentationDataset(Dataset):
 			# grab the image path from the current index
 			augmented = self.transforms(image=image, mask=mask)
 			image = augmented["image"]
-			# mask = augmented["mask"]
+			mask = augmented["mask"]
 			# print("shape_mask1: ", mask.shape)
 			mask = (mask > 127).astype("float32")        # chuyển về float32: giá trị 0.0 hoặc 1.0
 			mask = torch.from_numpy(mask)  
