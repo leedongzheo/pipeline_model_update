@@ -39,7 +39,7 @@ def get_dataloaders(augment):
     ),
             A.HorizontalFlip(p=0.5),
             # A.Rotate(limit=15, border_mode=0, p=0.3),
-	    A.Rotate(limit=30, p=0.5, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0)	
+	    A.Rotate(limit=30, p=0.5, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0),
             # A.RandomBrightnessContrast(brightness_limit=0.1, contrast_limit=0.1, p=0.3),
             # A.GaussNoise(var_limit=(10, 50), p=0.2),
             # A.ElasticTransform(alpha=1.0, sigma=50.0, p=0.2),
