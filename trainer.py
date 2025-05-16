@@ -170,6 +170,7 @@ class Trainer:
         print("input_image_height",input_image_height)
         print("numclass",numclass)
         print("NUM_EPOCHS",NUM_EPOCHS)
+        print("augment", augment)
         print("Đường dẫn dẫn đến file checkpoint", checkpoint_path)
         # Load model from checkpoint
         self.load_checkpoint(checkpoint_path)
