@@ -66,6 +66,7 @@ class Trainer:
         print("input_image_height", input_image_height)
         print("numclass", numclass)
         print("NUM_EPOCHS", NUM_EPOCHS)
+        print("augment", augment)
         # print(f"[INFO] Training completed!")
         start_time = time.time()
         for epoch in tqdm(range(self.num_epochs), desc="Training Progress"):
