@@ -24,8 +24,8 @@ class Trainer:
          # Khởi tạo CosineAnnealingLR scheduler
         # self.scheduler = CosineAnnealingLR(self.optimizer, T_max=T_max, eta_min=lr_min)
         # self.scheduler = MultiStepLR(optimizer, milestones=[20, 40, 60], gamma=0.1)
-        self.scheduler = ReduceLROnPlateau(self.optimizer, mode='min', factor=0.5, patience=5)
-
+        self.scheduler = ReduceLROnPlateau(self.optimizer,mode='min',factor=0.5,patience=5,min_lr=1e-6)  # <- giới hạn nhỏ nhất của learning rate
+        
     def save_checkpoint(self, epoch, dice, iou, filename, mode = "pretrained"):
         if mode == "train":
             self.start_epoch = 0
