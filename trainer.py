@@ -276,7 +276,7 @@ class Trainer:
         # iou_list = []
 
         with torch.no_grad():
-            test_loader_progress = tqdm(enumerate(test_loader), total=len(test_loader), desc="Testing")
+            test_loader_progress = tqdm(enumerate(val_loader), total=len(val_loader), desc="Testing")
             for i, (images, masks, image_paths) in test_loader_progress:
                 images, masks = images.to(self.device), masks.to(self.device)
                 outputs = self.model(images)
@@ -302,7 +302,7 @@ class Trainer:
         num_samples = len(self.dice_list)
         avg_dice = test_dice_total / num_samples
         avg_iou = test_iou_total / num_samples
-        print(f"[TEST] Avg Dice: {avg_dice:.4f}, Avg IoU: {avg_iou:.4f}")
+        print(f"[VALID] Avg Dice: {avg_dice:.4f}, Avg IoU: {avg_iou:.4f}")
         return avg_dice, avg_iou, self.dice_list, self.iou_list, self.path_list
 
 
