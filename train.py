@@ -46,6 +46,13 @@ def main():
     global trainer
     SEED=42
     torch.manual_seed(SEED)
+    random.seed(SEED)
+    np.random.seed(SEED)
+    torch.cuda.manual_seed(SEED)
+    torch.cuda.manual_seed_all(SEED)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
     # model1 = Unet.Unet(input_channel = 3)
     model1 = Swin_unet.SwinUnet() 
     
