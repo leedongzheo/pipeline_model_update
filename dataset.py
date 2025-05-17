@@ -73,6 +73,11 @@ def get_dataloaders(augment):
     ])
 
 
+    g = torch.Generator()
+    g.manual_seed(SEED)
+    def seed_worker(worker_id):
+	    np.random.seed(SEED + worker_id)
+	    random.seed(SEED + worker_id)
 
     trainImagesPaths = sorted(list(paths.list_images(IMAGE_TRAIN_PATH)))
     trainMasksPaths = sorted(list(paths.list_images(MASK_TRAIN_PATH)))
@@ -92,13 +97,13 @@ def get_dataloaders(augment):
 	
     trainLoader = DataLoader(trainDS, shuffle=True,
         batch_size=bach_size, pin_memory=PIN_MEMORY,
-        num_workers=4)
+        num_workers=4, worker_init_fn=seed_worker,generator=g)
     validLoader = DataLoader(validDS, shuffle=False,
         batch_size=bach_size, pin_memory=PIN_MEMORY,
-        num_workers=4)
+        num_workers=4, worker_init_fn=seed_worker, generator=g)
     testLoader = DataLoader(testDS, shuffle=False,
         batch_size=bach_size, pin_memory=PIN_MEMORY,
-        num_workers=4)
+        num_workers=4, worker_init_fn=seed_worker, generator=g)
 	
     return trainLoader, validLoader, testLoader
 
