@@ -38,6 +38,7 @@ def get_args():
 
 def main():  
     import torch
+    import random
     from trainer import Trainer
     from model import Unet, Swin_unet
     import optimizer
