@@ -41,7 +41,8 @@ def main():
     import torch
     import random
     from trainer import Trainer
-    from model import Unet, Swin_unet, load_pretrained_encoder
+    from model import Unet, Swin_unet
+    from model import load_pretrained_encoder
     import optimizer
     from result import export, export_evaluate
     from dataset import get_dataloaders
