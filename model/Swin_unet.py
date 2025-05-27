@@ -581,7 +581,7 @@ class PatchEmbed(nn.Module):
 
 
 
-def load_pretrained_encoder(swin_unet_model, pretrained_name='swin_tiny_c24_patch4_window8_256'):
+def load_pretrained_encoder(swin_unet_model, pretrained_name='swinv2_tiny_patch4_window8_256'):
     # Load pretrained Swin từ timm
     pretrained_model = timm.create_model(pretrained_name, pretrained=True)
 
@@ -815,8 +815,8 @@ class SwinUnet(nn.Module):
                                 # embed_dim=128,
                                 depths=[2, 2, 6, 2],
                                 # depths=[2, 2, 18, 2],
-                                # num_heads=[3, 6, 12, 24],
-                                num_heads=[4, 8, 16, 32],
+                                num_heads=[3, 6, 12, 24],
+                                # num_heads=[4, 8, 16, 32],
                                 window_size=8,
                                 # window_size=7,
                                 mlp_ratio=4,
