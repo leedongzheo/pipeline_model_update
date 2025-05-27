@@ -579,6 +579,24 @@ class PatchEmbed(nn.Module):
         return flops
 
 
+
+def load_pretrained_encoder(swin_unet_model, pretrained_name='swin_base_patch4_window7_224'):
+    # Load pretrained Swin từ timm
+    pretrained_model = timm.create_model(pretrained_name, pretrained=True)
+
+    # Lấy phần encoder (tương ứng với swin_unet_model.swin_unet.layers)
+    pretrained_layers = pretrained_model.layers
+
+    # Copy weights từ pretrained model sang model segmentation của bạn
+    with torch.no_grad():
+        for i in range(len(swin_unet_model.swin_unet.layers)):
+            print(f"Loading weights for encoder layer {i}")
+            swin_unet_model.swin_unet.layers[i].load_state_dict(
+                pretrained_layers[i].state_dict()
+            )
+
+    print("✅ Encoder weights loaded successfully from ImageNet pretrained Swin.")
+
 class SwinTransformerSys(nn.Module):
     r""" Swin Transformer
         A PyTorch impl of : `Swin Transformer: Hierarchical Vision Transformer using Shifted Windows`  -
