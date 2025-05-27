@@ -597,25 +597,41 @@ class PatchEmbed(nn.Module):
 #             )
 
 #     print("✅ Encoder weights loaded successfully from ImageNet pretrained Swin.")
+# def load_pretrained_encoder(model, checkpoint_path="swinv2_tiny_patch4_window8_256.pth"):
+#     import torch
+
+#     # Load checkpoint từ repo chính thức (file .pth tải từ Baidu/Microsoft)
+#     checkpoint = torch.load(checkpoint_path, map_location="cpu")
+#     pretrained_dict = checkpoint["model"]  # hoặc "state_dict" tùy file
+
+#     # Lấy encoder của mô hình segmentation
+#     model_dict = model.swin_unet.encoder.state_dict()
+
+#     # Lọc các trọng số liên quan tới encoder
+#     pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict and v.size() == model_dict[k].size()}
+
+#     # Cập nhật trọng số
+#     model_dict.update(pretrained_dict)
+#     model.swin_unet.encoder.load_state_dict(model_dict)
+
+#     print("✅ Đã load trọng số encoder từ ImageNet vào Swin-Unet.")
+
 def load_pretrained_encoder(model, checkpoint_path="swinv2_tiny_patch4_window8_256.pth"):
     import torch
 
-    # Load checkpoint từ repo chính thức (file .pth tải từ Baidu/Microsoft)
     checkpoint = torch.load(checkpoint_path, map_location="cpu")
-    pretrained_dict = checkpoint["model"]  # hoặc "state_dict" tùy file
+    pretrained_dict = checkpoint["model"]  # hoặc "state_dict" tùy vào file .pth
 
-    # Lấy encoder của mô hình segmentation
-    model_dict = model.swin_unet.encoder.state_dict()
+    model_dict = model.swin_unet.state_dict()
 
-    # Lọc các trọng số liên quan tới encoder
+    # Lọc các trọng số encoder phù hợp
     pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict and v.size() == model_dict[k].size()}
 
-    # Cập nhật trọng số
+    # Cập nhật trọng số pretrain
     model_dict.update(pretrained_dict)
-    model.swin_unet.encoder.load_state_dict(model_dict)
+    model.swin_unet.load_state_dict(model_dict)
 
-    print("✅ Đã load trọng số encoder từ ImageNet vào Swin-Unet.")
-
+    print(f"✅ Đã load {len(pretrained_dict)} trọng số từ ImageNet vào Swin-Unet.")
 
 class SwinTransformerSys(nn.Module):
     r""" Swin Transformer
