@@ -45,7 +45,9 @@ def get_dataloaders(augment):
             # A.GaussNoise(var_limit=(10, 50), p=0.2),
             # A.ElasticTransform(alpha=1.0, sigma=50.0, p=0.2),
             # A.GridDistortion(num_steps=5, distort_limit=0.03, p=0.2),
-            A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
+            # A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
+	    A.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
+
             ToTensorV2()
         ])
     else:
@@ -57,7 +59,7 @@ def get_dataloaders(augment):
 	        interpolation=cv2.INTER_LINEAR,          # cho ảnh
 	        mask_interpolation=cv2.INTER_NEAREST     # cho mask
     ),
-            A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
+            A.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
             ToTensorV2()
         ])
 
@@ -68,7 +70,8 @@ def get_dataloaders(augment):
 	        interpolation=cv2.INTER_LINEAR,          # cho ảnh
 	        mask_interpolation=cv2.INTER_NEAREST     # cho mask
     ),
-        A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
+        # A.Normalize(mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)),
+	     A.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
         ToTensorV2()
     ])
 
