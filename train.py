@@ -42,7 +42,6 @@ def main():
     import random
     from trainer import Trainer
     from model import Unet, Swin_unet
-    from model import load_pretrained_encoder
     import optimizer
     from result import export, export_evaluate
     from dataset import get_dataloaders
@@ -58,7 +57,7 @@ def main():
 
     # model1 = Unet.Unet(input_channel = 3)
     model1 = Swin_unet.SwinUnet() 
-    load_pretrained_encoder(model1)
+    Swin_unet.load_pretrained_encoder(model1)
     optimizer1 = optimizer.optimizer(model = model1)
     trainer = Trainer(model = model1, optimizer = optimizer1)
     trainLoader, validLoader, testLoader = get_dataloaders(args.augment)
