@@ -3,7 +3,8 @@ import torch.nn as nn
 import torch.utils.checkpoint as checkpoint
 from einops import rearrange
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
-
+import timm
+from collections import OrderedDict
 
 class MoEFFNGating(nn.Module):
     def __init__(self, dim, hidden_dim, num_experts):
@@ -810,10 +811,14 @@ class SwinUnet(nn.Module):
                                 patch_size=4,
                                 in_chans=in_chans,
                                 num_classes=self.num_classes,
-                                embed_dim=96,
-                                depths=[2, 2, 6, 2],
-                                num_heads=[3, 6, 12, 24],
-                                window_size=8,
+                                # embed_dim=96,
+                                embed_dim=128,
+                                # depths=[2, 2, 6, 2],
+                                depths=[2, 2, 18, 2],
+                                # num_heads=[3, 6, 12, 24],
+                                num_heads=[4, 8, 16, 32],
+                                # window_size=8,
+                                window_size=7,
                                 mlp_ratio=4,
                                 qkv_bias=True,
                                 qk_scale=None,
