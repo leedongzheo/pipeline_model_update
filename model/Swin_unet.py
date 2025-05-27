@@ -579,43 +579,6 @@ class PatchEmbed(nn.Module):
             flops += Ho * Wo * self.embed_dim
         return flops
 
-
-
-# def load_pretrained_encoder(swin_unet_model, pretrained_name='swinv2_tiny_patch4_window8_256'):
-#     # Load pretrained Swin từ timm
-#     pretrained_model = timm.create_model(pretrained_name, pretrained=True)
-
-#     # Lấy phần encoder (tương ứng với swin_unet_model.swin_unet.layers)
-#     pretrained_layers = pretrained_model.layers
-
-#     # Copy weights từ pretrained model sang model segmentation của bạn
-#     with torch.no_grad():
-#         for i in range(len(swin_unet_model.swin_unet.layers)):
-#             print(f"Loading weights for encoder layer {i}")
-#             swin_unet_model.swin_unet.layers[i].load_state_dict(
-#                 pretrained_layers[i].state_dict()
-#             )
-
-#     print("✅ Encoder weights loaded successfully from ImageNet pretrained Swin.")
-# def load_pretrained_encoder(model, checkpoint_path="swinv2_tiny_patch4_window8_256.pth"):
-#     import torch
-
-#     # Load checkpoint từ repo chính thức (file .pth tải từ Baidu/Microsoft)
-#     checkpoint = torch.load(checkpoint_path, map_location="cpu")
-#     pretrained_dict = checkpoint["model"]  # hoặc "state_dict" tùy file
-
-#     # Lấy encoder của mô hình segmentation
-#     model_dict = model.swin_unet.encoder.state_dict()
-
-#     # Lọc các trọng số liên quan tới encoder
-#     pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict and v.size() == model_dict[k].size()}
-
-#     # Cập nhật trọng số
-#     model_dict.update(pretrained_dict)
-#     model.swin_unet.encoder.load_state_dict(model_dict)
-
-#     print("✅ Đã load trọng số encoder từ ImageNet vào Swin-Unet.")
-
 def load_pretrained_encoder(model, checkpoint_path="swinv2_tiny_patch4_window8_256.pth"):
     import torch
 
@@ -631,7 +594,7 @@ def load_pretrained_encoder(model, checkpoint_path="swinv2_tiny_patch4_window8_2
     model_dict.update(pretrained_dict)
     model.swin_unet.load_state_dict(model_dict)
 
-    print(f"✅ Đã load {len(pretrained_dict)} trọng số từ ImageNet vào Swin-Unet.")
+    print(f"Đã load {len(pretrained_dict)} trọng số từ ImageNet vào Swin-Unet.")
 
 class SwinTransformerSys(nn.Module):
     r""" Swin Transformer
