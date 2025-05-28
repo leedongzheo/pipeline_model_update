@@ -142,9 +142,14 @@ def export(trainer):
     plt.show()
     plt.close()
 def export_evaluate(trainer):
+    output_folder = BASE_OUTPUT
+    os.makedirs(output_folder, exist_ok=True)
     df = pd.DataFrame({
         'ImagePath': trainer.path_list,
         'Dice': trainer.dice_list,
         'IoU': trainer.iou_list
     })
-    df.to_csv("test_metrics_with_paths.csv", index=False)
+    result_csv = "test_metrics_with_paths.csv"
+    output_result = os.path.join(output_folder, result_csv)
+    df.to_csv(output_result, index=False)
+    
