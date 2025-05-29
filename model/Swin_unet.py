@@ -835,6 +835,7 @@ class SwinUnet(nn.Module):
                                 num_heads=[ 4, 8, 16, 32 ],
                                 # num_heads=[4, 8, 16, 32],
                                 window_size=16,
+                                pretrained_window_size=[12, 12, 12, 6],
                                 # window_size=7,
                                 mlp_ratio=4,
                                 qkv_bias=True,
