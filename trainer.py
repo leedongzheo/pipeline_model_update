@@ -142,8 +142,6 @@ class Trainer:
             self.train_ious.append(avg_train_iou)
             self.val_ious.append(avg_val_iou)    
              
-
-            self.save_checkpoint(epoch + 1, self.best_dice, self.best_iou, f'last_model.pth', mode="train")
             if avg_val_iou > self.best_iou:
                 self.best_iou, self.best_epoch_iou = avg_val_iou, epoch + 1
             if self.avg_val_dice > self.best_dice:
@@ -157,6 +155,9 @@ class Trainer:
                 self.save_checkpoint(epoch + 1, self.best_dice, self.best_iou, f'last_model.pth', mode="train")
                 print(f"[INFO] Early stopping at epoch {epoch+1}")
                 break
+                
+            self.save_checkpoint(epoch + 1, self.best_dice, self.best_iou, f'last_model.pth')
+
             torch.cuda.empty_cache()
             gc.collect()
 
