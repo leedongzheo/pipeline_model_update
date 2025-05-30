@@ -824,29 +824,57 @@ class SwinUnet(nn.Module):
         self.zero_head = zero_head
         # self.config = config
 
-        self.swin_unet = SwinTransformerSys(img_size=img_size,
+        self.swin_unet = SwinTransformerSys(
+                                img_size=img_size,
                                 patch_size=4,
                                 in_chans=in_chans,
                                 num_classes=self.num_classes,
-                                embed_dim=96,
+                                embed_dim=128,
                                 # embed_dim=128,
                                 # depths=[2, 2, 6, 2],
                                 depths=[ 2, 2, 18, 2 ],
-                                num_heads= [ 3, 6, 12, 24 ],
+                                num_heads= [ 4, 8, 16, 32 ],
                                 # num_heads=[4, 8, 16, 32],
-                                window_size=8,
-                                # pretrained_window_size=[12, 12, 12, 6],
+                                window_size=16,
+                                pretrained_window_size=[12, 12, 12, 6],
                                 # window_size=7,
                                 mlp_ratio=4,
                                 qkv_bias=True,
                                 qk_scale=None,
                                 drop_rate=0.0,
                                 # drop_path_rate=0.1,
-                                drop_path_rate=0.3,
+                                drop_path_rate=0.2,
                                 ape=False,
                                 patch_norm=True,
                                 # use_checkpoint="expand_first"
                                 use_checkpoint=False)
+                                            
+            # Hoi opem
+            #-------------------------------------------- 
+                                # img_size=img_size,
+                                # patch_size=4,
+                                # in_chans=in_chans,
+                                # num_classes=self.num_classes,
+                                # embed_dim=96,
+                                # # embed_dim=128,
+                                # # depths=[2, 2, 6, 2],
+                                # depths=[ 2, 2, 18, 2 ],
+                                # num_heads= [ 3, 6, 12, 24 ],
+                                # # num_heads=[4, 8, 16, 32],
+                                # window_size=8,
+                                # # pretrained_window_size=[12, 12, 12, 6],
+                                # # window_size=7,
+                                # mlp_ratio=4,
+                                # qkv_bias=True,
+                                # qk_scale=None,
+                                # drop_rate=0.0,
+                                # # drop_path_rate=0.1,
+                                # drop_path_rate=0.3,
+                                # ape=False,
+                                # patch_norm=True,
+                                # # use_checkpoint="expand_first"
+                                # use_checkpoint=False)
+        # -----------------------------------------------------------------------
 
     def forward(self, x):
         if x.size()[1] == 1:
