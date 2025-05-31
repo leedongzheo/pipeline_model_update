@@ -861,7 +861,7 @@ class SwinUnet(nn.Module):
                                 depths=[ 2, 2, 18, 2 ],
                                 num_heads= [ 3, 6, 12, 24 ],
                                 # num_heads=[4, 8, 16, 32],
-                                window_size=8,
+                                window_size=16,
                                 # pretrained_window_size=[12, 12, 12, 6],
                                 # window_size=7,
                                 mlp_ratio=4,
